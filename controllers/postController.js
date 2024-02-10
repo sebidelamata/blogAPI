@@ -32,3 +32,11 @@ exports.posts_update_get = asyncHandler(async (req, res, next) => {
 exports.posts_update_post = asyncHandler(async (req, res, next) => {
     res.send("Not Implemented: Posts Update Posts")
 })
+
+exports.posts_like_get = asyncHandler(async (req, res, next) => {
+    res.send("Not Implemented: Posts like Get")
+})
+
+exports.posts_like_post = asyncHandler(async (req, res, next) => {
+    res.send("Not Implemented: Posts like Posts")
+})

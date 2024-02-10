@@ -24,3 +24,11 @@ exports.comments_delete_get = asyncHandler(async (req, res, next) => {
 exports.comments_delete_post = asyncHandler(async (req, res, next) => {
     res.send("Not Implemented: Comments Delete Posts")
 })
+
+exports.comments_like_get = asyncHandler(async (req, res, next) => {
+    res.send("Not Implemented: Comments like Get")
+})
+
+exports.comments_like_post = asyncHandler(async (req, res, next) => {
+    res.send("Not Implemented: Comments like Posts")
+})
