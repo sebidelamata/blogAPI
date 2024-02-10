@@ -19,3 +19,4 @@ router.post('/:id/like', comment_controller.comments_like_post)
 
 router.get('/:id', comment_controller.comments_detail)
 
+module.exports = router

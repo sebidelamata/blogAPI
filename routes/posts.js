@@ -23,3 +23,4 @@ router.post('/:id/like', post_controller.posts_like_post)
 
 router.get('/:id', post_controller.posts_detail)
 
+module.exports = router
