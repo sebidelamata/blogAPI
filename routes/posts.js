@@ -17,6 +17,14 @@ router.get('/:id/update', post_controller.posts_update_get)
 
 router.post('/:id/update', post_controller.posts_update_post)
 
+router.get('/:id/publish', post_controller.posts_publish_get)
+
+router.post('/:id/publish', post_controller.posts_publish_post)
+
+router.get('/:id/unpublish', post_controller.posts_unpublish_get)
+
+router.post('/:id/unpublish', post_controller.posts_unpublish_post)
+
 router.get('/:id/like', post_controller.posts_like_get)
 
 router.post('/:id/like', post_controller.posts_like_post)

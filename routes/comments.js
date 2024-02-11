@@ -7,7 +7,7 @@ router.get('/create', comment_controller.comments_create_get)
 
 router.post('/create', comment_controller.comments_create_post)
 
-router.get('/all_posts', comment_controller.comments_list)
+router.get('/all_comments', comment_controller.comments_list)
 
 router.get('/:id/delete', comment_controller.comments_delete_get)
 
