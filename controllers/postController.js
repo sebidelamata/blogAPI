@@ -20,12 +20,12 @@ exports.posts_detail = asyncHandler(async (req, res, next) => {
 exports.posts_create_post = [
     body("title", "Title must be at least one character long")
     .trim()
-    .isLength({ min: 3 })
+    .isLength({ min: 1 })
     .escape(),
 
     body("post", "Post must be at least one character long")
     .trim()
-    .isLength({ min: 3 })
+    .isLength({ min: 1 })
     .escape(),
 
     asyncHandler(async (req, res, next) => {
@@ -48,25 +48,112 @@ exports.posts_create_post = [
 ]
 
 exports.posts_delete_post = asyncHandler(async (req, res, next) => {
-    res.send("Not Implemented: Posts Delete Posts")
+    const post = await Posts.findByIdAndDelete(req.params.id)
+    .exec()
+    if(post === null){
+        res.status(400).json('This post does not exist')
+        return
+    } else {
+        res.status(201).json({message: 'Form submitted successfully'})
+        return
+    }
 })
 
-exports.posts_update_post = asyncHandler(async (req, res, next) => {
-    res.send("Not Implemented: Posts Update Posts")
-})
+exports.posts_update_post = [
+    body("title", "Title must be at least one character long")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+    body("post", "Post must be at least one character long")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req)
+
+        const post = new Posts({
+            title: req.body.title,
+            post: req.body.post,
+            likes: req.body.likes,
+            published: req.body.published,
+            _id: req.params.id
+        })
+
+        if(!errors.isEmpty()){
+            res.status(400).json({ post, errors: errors.array() })
+        } else {
+
+            await Posts.findByIdAndUpdate(req.params.id, post, {})
+            res.status(201).json({message: 'Form submitted succesfully' })
+            return
+        }
+
+
+    })
+]
 
 exports.posts_like_post = asyncHandler(async (req, res, next) => {
-    res.send("Not Implemented: Posts like Post")
+    const post = await Posts.findById(req.params.id)
+    .exec()
+    console.log(post)
+
+    if(post === null){
+        res.status(400).json('This post does not exist')
+        return
+    } else {
+        post.likes += 1
+        await Posts.findByIdAndUpdate(req.params.id, post, {})
+        res.status(201).json({message: 'Form submitted succesfully' })
+        return
+    }
 })
 
 exports.posts_unlike_post = asyncHandler(async (req, res, next) => {
-    res.send("Not Implemented: Posts unlikelike Post")
+    const post = await Posts.findById(req.params.id)
+    .exec()
+    console.log(post)
+
+    if(post === null){
+        res.status(400).json('This post does not exist')
+        return
+    } else {
+        post.likes -= 1
+        await Posts.findByIdAndUpdate(req.params.id, post, {})
+        res.status(201).json({message: 'Form submitted succesfully' })
+        return
+    }
 })
 
 exports.posts_publish_post = asyncHandler(async (req, res, next) => {
-    res.send("Not Implemented: Posts publish Posts")
+    const post = await Posts.findById(req.params.id)
+    .exec()
+    console.log(post)
+
+    if(post === null){
+        res.status(400).json('This post does not exist')
+        return
+    } else {
+        post.published = true
+        await Posts.findByIdAndUpdate(req.params.id, post, {})
+        res.status(201).json({message: 'Form submitted succesfully' })
+        return
+    }
 })
 
 exports.posts_unpublish_post = asyncHandler(async (req, res, next) => {
-    res.send("Not Implemented: Posts unpublish Post")
+    const post = await Posts.findById(req.params.id)
+    .exec()
+    console.log(post)
+
+    if(post === null){
+        res.status(400).json('This post does not exist')
+        return
+    } else {
+        post.published = false
+        await Posts.findByIdAndUpdate(req.params.id, post, {})
+        res.status(201).json({message: 'Form submitted succesfully' })
+        return
+    }
 })

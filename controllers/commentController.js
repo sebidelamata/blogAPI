@@ -44,13 +44,43 @@ exports.comments_create_post = [
 ]
 
 exports.comments_delete_post = asyncHandler(async (req, res, next) => {
-    res.send("Not Implemented: Comments Delete Posts")
+    const comment = await Comments.findByIdAndDelete(req.params.id)
+    .exec()
+    if(comment === null){
+        res.status(400).json('This comment does not exist')
+        return
+    } else {
+        res.status(201).json({message: 'Form submitted successfully'})
+        return
+    }
 })
 
 exports.comments_like_post = asyncHandler(async (req, res, next) => {
-    res.send("Not Implemented: Comments like Posts")
+    const comment = await Comments.findById(req.params.id)
+    .exec()
+
+    if(comment === null){
+        res.status(400).json('This post does not exist')
+        return
+    } else {
+        comment.likes += 1
+        await Comments.findByIdAndUpdate(req.params.id, comment, {})
+        res.status(201).json({message: 'Form submitted successfully'})
+        return
+    }
 })
 
 exports.comments_unlike_post = asyncHandler(async (req, res, next) => {
-    res.send("Not Implemented: Comments unlike Posts")
+    const comment = await Comments.findById(req.params.id)
+    .exec()
+
+    if(comment === null){
+        res.status(400).json('This post does not exist')
+        return
+    } else {
+        comment.likes -= 1
+        await Comments.findByIdAndUpdate(req.params.id, comment, {})
+        res.status(201).json({message: 'Form submitted successfully'})
+        return
+    }
 })
