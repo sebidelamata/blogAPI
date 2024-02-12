@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();
+const cors = require("cors")
 
 
 var postsRouter = require('./routes/posts');
@@ -21,6 +22,9 @@ async function main() {
   await mongoose.connect(mongoDB);
 }
 
+app.use(cors({
+  origin: 'http://localhost:5173' // Allow requests from example.com
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
