@@ -17,7 +17,7 @@ PostSchema.virtual("url").get(function () {
     return `/posts/${this._id}`;
   });
 
-  PostSchema.virtual("published_date_formatted").get(function () {
+  PostSchema.virtual("publish_date_formatted").get(function () {
     return DateTime.fromJSDate(this.publish_date).toLocaleString(DateTime.DATE_MED);
   });
 

@@ -29,11 +29,13 @@ exports.comments_create_post = [
 
     const comment = new Comments({
         comment: req.body.comment,
-        post_id: req.body.post_id
+        post_id: req.body.post_id,
+        publish_date: new Date()
     })
 
     if(!errors.isEmpty()){
         res.status(400).json({ comment, errors: errors.array() })
+        console.log(errors)
         return
     } else {
         await comment.save()

@@ -33,7 +33,8 @@ exports.posts_create_post = [
 
         const post = new Posts({
             title: req.body.title,
-            post: req.body.post
+            post: req.body.post,
+            publish_date: new Date()
         })
 
         if(!errors.isEmpty()){
